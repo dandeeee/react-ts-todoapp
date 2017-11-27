@@ -42,7 +42,7 @@ class TodoItem extends React.Component<TodoItemProps, {}> {
         return (
             <li style={styles.li}>
                 <div>
-                    <input type="checkbox" onClick={() => this.toggleTask()} />
+                    <input type="checkbox" onChange={() => this.toggleTask()} checked={task.isCompleted} />
                     <label>{task.title}</label>
                 </div>
             </li>

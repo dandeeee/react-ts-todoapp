@@ -38,6 +38,12 @@ class App extends React.Component<{}, AppState> {
         })
     }
 
+    handleFilterChange(newFilter: TodoFilter) {
+        this.setState({
+            filter: newFilter
+        })
+    }
+
     render() {
         const {tasks, filter} = this.state
         return (
@@ -46,7 +52,7 @@ class App extends React.Component<{}, AppState> {
                 <TodosPane>
                     <AddTodo onAdd={(task: Task) => this.handleTaskAdd(task)} />
                     <AllTodos tasks={tasks} filter={filter} onToggle={(task: Task) => this.handleTaskToggle(task)} />
-                    <Footer tasks={tasks} filter={filter} />
+                    <Footer tasks={tasks} filter={filter} onFilterChange={(newFilter: TodoFilter) => this.handleFilterChange(newFilter)} />
                 </TodosPane>
             </div>
         )
