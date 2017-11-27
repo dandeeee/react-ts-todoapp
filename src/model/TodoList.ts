@@ -11,3 +11,5 @@ export function getStubTaskList() {
         new Task('Learn React')
     ]
 }
+
+export enum TodoFilter {ALL, DONE, TODO}
