@@ -1,22 +1,24 @@
-import * as React from 'react';
-import './App.css';
-
-const logo = require('./logo.svg');
+import * as React from 'react'
+import './App.css'
+import Header from './view/Header'
+import TodosPane from './view/TodosPane'
+import AddTodo from './view/AddTodo'
+import AllTodos from './view/AllTodos'
+import Footer from './view/Footer'
 
 class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
+          <Header />
+          <TodosPane>
+              <AddTodo />
+              <AllTodos />
+              <Footer />
+          </TodosPane>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
