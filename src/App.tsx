@@ -22,9 +22,19 @@ class App extends React.Component<{}, AppState> {
         }
     }
 
-    handleAddTodo(task: Task) {
+    handleTaskAdd(task: Task) {
         this.setState({
             tasks: [...this.state.tasks, task]
+        })
+    }
+
+    handleTaskToggle(task: Task) {
+        const {tasks} = this.state
+        const taskPosition = tasks.findIndex(t => t.title === task.title)
+        task.isCompleted = !task.isCompleted
+        const newTasks = tasks.map((t, i) => i === taskPosition ? task : t)
+        this.setState({
+            tasks: newTasks
         })
     }
 
@@ -34,8 +44,8 @@ class App extends React.Component<{}, AppState> {
             <div className="App">
                 <Header />
                 <TodosPane>
-                    <AddTodo onAdd={(task: Task) => this.handleAddTodo(task)} />
-                    <AllTodos tasks={tasks} filter={filter} />
+                    <AddTodo onAdd={(task: Task) => this.handleTaskAdd(task)} />
+                    <AllTodos tasks={tasks} filter={filter} onToggle={(task: Task) => this.handleTaskToggle(task)} />
                     <Footer tasks={tasks} filter={filter} />
                 </TodosPane>
             </div>

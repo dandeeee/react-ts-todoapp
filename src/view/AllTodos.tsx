@@ -3,13 +3,14 @@ import { Task } from '../model/Task'
 import { TodoFilter } from '../model/TodoList'
 
 interface AllTodosProps {
-    tasks: Array<Task>,
+    tasks: Array<Task>
     filter: TodoFilter
+    onToggle: Function
 }
 
 export default class AllTodos extends React.Component<AllTodosProps, {}> {
     render() {
-        const {tasks, filter = TodoFilter.ALL} = this.props
+        const {tasks, filter = TodoFilter.ALL, onToggle} = this.props
         const filtered = tasks.filter(task => {
                 return (
                     filter === TodoFilter.ALL ||
@@ -17,7 +18,7 @@ export default class AllTodos extends React.Component<AllTodosProps, {}> {
                     (filter === TodoFilter.DONE && task.isCompleted == true)
                 )
             })
-        const items = filtered.map((task, i) => <TodoItem key={i} task={task} />)
+        const items = filtered.map((task, i) => <TodoItem task={task} onToggle={(task: Task) => onToggle(task)} key={i} />)
 
         return <ul style={styles.ul}>{items}</ul>
     }
@@ -25,16 +26,23 @@ export default class AllTodos extends React.Component<AllTodosProps, {}> {
 
 interface TodoItemProps {
     task: Task
+    onToggle: Function
 }
 
 class TodoItem extends React.Component<TodoItemProps, {}> {
+
+    toggleTask() {
+        const {task, onToggle} = this.props
+        onToggle(task)
+    }
+
     render() {
         const {task} = this.props
 
         return (
             <li style={styles.li}>
                 <div>
-                    <input type="checkbox" />
+                    <input type="checkbox" onClick={() => this.toggleTask()} />
                     <label>{task.title}</label>
                 </div>
             </li>
