@@ -3,25 +3,13 @@ import { Task } from '../model/Task'
 import { TodoFilter } from '../model/TodoList'
 
 interface FooterProps {
-    tasks: Array<Task>
-}
-
-interface FooterState {
+    tasks: Array<Task>,
     filter: TodoFilter
 }
 
-export default class Footer extends React.Component<FooterProps, FooterState> {
-
-    constructor(props: any) {
-        super(props)
-        this.state = {
-            filter: TodoFilter.DONE
-        }
-    }
-
+export default class Footer extends React.Component<FooterProps, {}> {
     render() {
-        const {tasks} = this.props
-        const {filter} = this.state
+        const {tasks, filter} = this.props
         const completedTasks = tasks.filter(t => t.isCompleted)
 
         return (
