@@ -8,6 +8,7 @@ export default class TodosPane extends React.Component {
 
 const styles = {
     pane: {
+        position: 'relative' as 'relative',
         width: '300px',
         margin: '0 auto',
         background: '#fff',

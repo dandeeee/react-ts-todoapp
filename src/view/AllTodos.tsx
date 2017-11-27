@@ -1,10 +1,13 @@
 import * as React from 'react'
-import { getStubTaskList } from '../model/TodoList'
 import { Task } from '../model/Task'
 
-export default class AllTodos extends React.Component {
+interface AllTodosProps {
+    tasks: Array<Task>
+}
+
+export default class AllTodos extends React.Component<AllTodosProps, {}> {
     render() {
-        const tasks = getStubTaskList()
+        const {tasks} = this.props
         const items = tasks.map((task, i) => <TodoItem key={i} task={task} />)
 
         return <ul style={styles.ul}>{items}</ul>
@@ -15,7 +18,7 @@ interface TodoItemProps {
     task: Task
 }
 
-class TodoItem extends React.Component<any, TodoItemProps> {
+class TodoItem extends React.Component<TodoItemProps, {}> {
     render() {
         const {task} = this.props
 
@@ -40,7 +43,7 @@ const styles = {
     li: {
         display: 'list-item',
         textAlign: '-webkit-match-parent',
-        fontSize: '24px',
+        fontSize: '14px',
         borderBottom: '1px solid #ededed'
     }
 }
