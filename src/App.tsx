@@ -22,13 +22,19 @@ class App extends React.Component<{}, AppState> {
         }
     }
 
+    handleAddTodo(task: Task) {
+        this.setState({
+            tasks: [...this.state.tasks, task]
+        })
+    }
+
     render() {
         const {tasks, filter} = this.state
         return (
             <div className="App">
                 <Header />
                 <TodosPane>
-                    <AddTodo />
+                    <AddTodo onAdd={(task: Task) => this.handleAddTodo(task)} />
                     <AllTodos tasks={tasks} filter={filter} />
                     <Footer tasks={tasks} filter={filter} />
                 </TodosPane>
