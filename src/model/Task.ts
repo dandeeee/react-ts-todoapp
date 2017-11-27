@@ -1,9 +1,9 @@
 export class Task {
-    todo: string
+    title: string
     isCompleted: boolean = false
 
     constructor(taskName: string) {
-        this.todo = taskName
+        this.title = taskName
     }
 
 }

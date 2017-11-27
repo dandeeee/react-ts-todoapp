@@ -4,7 +4,7 @@ export class TodoList {
     tasks: Array<Task> = []
 }
 
-export function getStubTodoList() {
+export function getStubTaskList() {
     return [
         new Task('Buy cow'),
         new Task('Get milk'),
