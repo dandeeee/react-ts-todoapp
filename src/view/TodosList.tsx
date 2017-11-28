@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Task } from '../model/Task'
 import { TodoFilter } from '../model/TodoList'
-import AppRouter from '../AppRouter'
+import { Link } from 'react-router-dom'
 
 interface AllTodosProps {
     tasks: Array<Task>
@@ -43,9 +43,9 @@ class TodoItem extends React.Component<TodoItemProps, {}> {
         return (
             <li style={styles.li}>
                 <input type="checkbox" onChange={() => this.toggleTask()} checked={task.isCompleted} />
-                <a href='#' onClick={() => AppRouter.goto(`/todos/${task.id}`, {task})}>
+                <Link to={`/todos/${task.id}`}>
                     <label>{task.title}</label>
-                </a>
+                </Link>
             </li>
         )
     }
