@@ -42,8 +42,8 @@ class TodoItem extends React.Component<TodoItemProps, {}> {
 
         return (
             <li style={styles.li}>
-                <a href='#' onClick={() => AppRouter.goto(`/todos/${task.id}`)}>
-                    <input type="checkbox" onChange={() => this.toggleTask()} checked={task.isCompleted} />
+                <input type="checkbox" onChange={() => this.toggleTask()} checked={task.isCompleted} />
+                <a href='#' onClick={() => AppRouter.goto(`/todos/${task.id}`, {task})}>
                     <label>{task.title}</label>
                 </a>
             </li>
