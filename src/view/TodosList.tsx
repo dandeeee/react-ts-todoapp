@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Task } from '../model/Task'
 import { TodoFilter } from '../model/TodoList'
+import AppRouter from '../AppRouter'
 
 interface AllTodosProps {
     tasks: Array<Task>
@@ -8,7 +9,7 @@ interface AllTodosProps {
     onToggle: Function
 }
 
-export default class AllTodos extends React.Component<AllTodosProps, {}> {
+export default class TodosList extends React.Component<AllTodosProps, {}> {
     render() {
         const {tasks, filter = TodoFilter.ALL, onToggle} = this.props
         const filtered = tasks.filter(task => {
@@ -41,10 +42,10 @@ class TodoItem extends React.Component<TodoItemProps, {}> {
 
         return (
             <li style={styles.li}>
-                <div>
+                <a href='#' onClick={() => AppRouter.goto(`/todos/${task.id}`)}>
                     <input type="checkbox" onChange={() => this.toggleTask()} checked={task.isCompleted} />
                     <label>{task.title}</label>
-                </div>
+                </a>
             </li>
         )
     }
