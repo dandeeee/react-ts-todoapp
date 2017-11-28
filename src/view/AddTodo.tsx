@@ -2,14 +2,14 @@ import * as React from 'react'
 import { Task } from '../model/Task'
 
 interface AddTodoProps {
-    onAdd: Function
+    onTaskAdd: Function
 }
 
 export default class AddTodo extends React.Component<AddTodoProps, {}> {
 
     handleAdd(e: any) {
         if(e.keyCode === 13){
-            this.props.onAdd(new Task(e.target.value))
+            this.props.onTaskAdd(new Task(e.target.value))
             e.target.value = ''
         }
     }
