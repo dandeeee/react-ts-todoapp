@@ -34,7 +34,23 @@ app.put('/todos', (request, response) => {
             response.send(201, task)
         }, 1000)
     } else {
-        response.send(409, 'not created')
+        response.send(400, 'not created')
+    }
+})
+
+app.post('/todos/:id', (request, response) => {
+    const newTask = request.body
+    const taskPosition = tasks.findIndex(t => t.id == request.params.id)
+
+    if(taskPosition){
+        const persistedTask = tasks[taskPosition]
+        const updatedTask = Object.assign(new Task(), persistedTask, newTask)
+        tasks[taskPosition] = updatedTask
+        setTimeout(() => {
+            response.send(200, updatedTask)
+        }, 1000)
+    } else {
+        response.send(404, 'not found')
     }
 })
 

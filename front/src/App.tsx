@@ -35,12 +35,14 @@ class App extends React.Component<{}, State> {
     }
 
     handleTaskToggle(task: Task) {
-        const {tasks} = this.state
-        const taskPosition = tasks.findIndex(t => t.title === task.title)
         task.isCompleted = !task.isCompleted
-        const newTasks = tasks.map((t, i) => i === taskPosition ? task : t)
-        this.setState({
-            tasks: newTasks
+        API.post(`/todos/${task.id}`, task).then(updatedTask => {
+            const {tasks} = this.state
+            const taskPosition = tasks.findIndex(t => t.id == updatedTask.id)
+            const newTasks = tasks.map((t, i) => i === taskPosition ? updatedTask : t)
+            this.setState({
+                tasks: newTasks
+            })
         })
     }
 
@@ -49,7 +51,6 @@ class App extends React.Component<{}, State> {
             filter: newFilter
         })
     }
-
 
     render() {
         return (

@@ -26,47 +26,37 @@ export default class API {
     }
 
     // to create
-    static put(path: String, payload: Object): Promise<any> {
-        const fetchPromise = new Promise((resolve, reject) => {
-            //noinspection TypeScriptUnresolvedFunction
-            return fetch(`${HOST}${path}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(payload)
-            })
-                .then(res => {
-                    return res.json()
-                })
-                .then(data => {
-                    resolve(data)
-                })
-                .catch(err => {
-                    reject(err)
-                })
-        })
-
-        return fetchPromise
+    static put(path: string, payload: Object): Promise<any> {
+        return putOrPost('PUT', path, payload)
     }
 
     // to update
-    static post(path: String, payload: Object): Promise<any> {
-        const fetchPromise = new Promise((resolve, reject) => {
-            //noinspection TypeScriptUnresolvedFunction
-            return fetch(`${HOST}${path}`, {
-                method: 'post',
-                body: JSON.stringify(payload)
-            })
-            .then(res => res.json())
-            .then(data => {
-                console.log(`POST to ${HOST}${path} : ${JSON.stringify(data)}`)
-                resolve(data)
-            })
-            .catch(err => reject(err))
-        })
-
-        return fetchPromise
+    static post(path: string, payload: Object): Promise<any> {
+        return putOrPost('POST', path, payload)
     }
 
+}
+
+function putOrPost(method: string, path: string, payload: Object): Promise<any> {
+    const fetchPromise = new Promise((resolve, reject) => {
+        //noinspection TypeScriptUnresolvedFunction
+        return fetch(`${HOST}${path}`, {
+            method,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(res => {
+            return res.json()
+        })
+        .then(data => {
+            resolve(data)
+        })
+        .catch(err => {
+            reject(err)
+        })
+    })
+
+    return fetchPromise
 }
