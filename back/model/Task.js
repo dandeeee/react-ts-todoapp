@@ -1,6 +1,8 @@
+let ID = 0
+
 class Task {
     constructor(taskName) {
-        this.id = Math.floor(10000 * Math.random())
+        this.id = ID++
         this.title = taskName
         this.isCompleted = false
     }

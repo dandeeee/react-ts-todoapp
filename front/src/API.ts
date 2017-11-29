@@ -8,7 +8,11 @@ export default class API {
             //noinspection TypeScriptUnresolvedFunction
             return fetch(`${HOST}${path}`, { method: 'get'})
                 .then(res => {
-                    return res.json()
+                    if(res.status < 400) {
+                        return res.json()
+                    } else {
+                        throw {code: res.status.toString()}
+                    }
                 })
                 .then(data => {
                     resolve(data)

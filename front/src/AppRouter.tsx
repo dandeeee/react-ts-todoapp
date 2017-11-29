@@ -22,9 +22,9 @@ export default class AppRouter extends React.Component<Props, {}> {
 
     render() {
 
-        const findTask = (id: number): Task | undefined => {
-            return this.props.tasks.find(t => t.id == id)
-        }
+        // const findTask = (id: number): Task | undefined => {
+        //     return this.props.tasks.find(t => t.id == id)
+        // }
 
         return (
             <BrowserRouter>
@@ -38,8 +38,7 @@ export default class AppRouter extends React.Component<Props, {}> {
                         path={`/todos/:id`}
                         render={
                             ({match: {params: {id}}}) => {
-                                const task = findTask(id)
-                                return task ? <TodoPage task={task} /> : <h1>404</h1>
+                                return <TodoPage taskId={id} />
                             }
                         }
                     />

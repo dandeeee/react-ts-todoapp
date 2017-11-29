@@ -22,6 +22,20 @@ app.get('/todos', (request, response) => {
   }, 1000)
 })
 
+
+app.get('/todos/:id', (request, response) => {
+    const task = tasks.find(t => t.id == request.params.id)
+
+    setTimeout(() => {
+        if(task){
+            response.send(200, task)
+        } else {
+            response.send(404)
+        }
+    }, 1000)
+})
+
+
 app.listen(port, (err) => {
   if (err) {
     return console.log('something bad happened', err)
