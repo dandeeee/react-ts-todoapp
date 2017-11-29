@@ -1,5 +1,6 @@
 const Task = require("./model/Task");
 
+const bodyParser = require('body-parser')
 const express = require('express')
 const app = express()
 const port = 9000
@@ -10,9 +11,12 @@ const tasks = [
     new Task('Server task 3')
 ]
 
+app.use(bodyParser());
+
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     next();
 });
 
@@ -20,6 +24,18 @@ app.get('/todos', (request, response) => {
   setTimeout(() => {
       response.send(200, tasks)
   }, 1000)
+})
+
+app.put('/todos', (request, response) => {
+    if(request.body.title){
+        const task = new Task(request.body.title)
+        tasks.push(task)
+        setTimeout(() => {
+            response.send(201, task)
+        }, 1000)
+    } else {
+        response.send(409, 'not created')
+    }
 })
 
 

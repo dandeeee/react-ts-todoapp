@@ -27,8 +27,10 @@ class App extends React.Component<{}, State> {
     }
 
     handleTaskAdd(task: Task) {
-        this.setState({
-            tasks: [...this.state.tasks, task]
+        API.put('/todos', task).then(createdTask => {
+            this.setState({
+                tasks: [...this.state.tasks, createdTask]
+            })
         })
     }
 
