@@ -1,4 +1,3 @@
-
 import * as React from 'react'
 import Header from './Header'
 import TodosPane from './TodosPane'
@@ -22,15 +21,19 @@ export default class TodosPage extends React.Component<Props, {}> {
     render() {
         const {tasks, filter, onTaskAdd, onTaskToggle, onFilterChange} = this.props
 
-        return (
-            <div>
-                <Header />
-                <TodosPane>
-                    <AddTodo onTaskAdd={(task: Task) => onTaskAdd(task)} />
-                    <AllTodos tasks={tasks} filter={filter} onToggle={(task: Task) => onTaskToggle(task)} />
-                    <Footer tasks={tasks} filter={filter} onFilterChange={(newFilter: TodoFilter) => onFilterChange(newFilter)} />
-                </TodosPane>
-            </div>
-        )
+        if(tasks.length !== 0) {
+            return (
+                <div>
+                    <Header />
+                    <TodosPane>
+                        <AddTodo onTaskAdd={(task: Task) => onTaskAdd(task)} />
+                        <AllTodos tasks={tasks} filter={filter} onToggle={(task: Task) => onTaskToggle(task)} />
+                        <Footer tasks={tasks} filter={filter} onFilterChange={(newFilter: TodoFilter) => onFilterChange(newFilter)} />
+                    </TodosPane>
+                </div>
+            )
+        } else {
+            return <h3>Loading...</h3>
+        }
     }
 }
