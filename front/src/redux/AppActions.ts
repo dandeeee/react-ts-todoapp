@@ -1,5 +1,5 @@
 import {Task} from "../model/Task";
-import {FILTER_SET, TASKS_ADD_ONE, TASKS_SET_ALL, TASKS_TOGGLE_ONE} from "./ActionTypes";
+import {FILTER_SET, TASKS_ADD_ONE, TASKS_SET_ALL, TASKS_UPDATE_ONE} from "./ActionTypes";
 import {TodoFilter} from "../model/TodoList";
 import {Action} from "redux-actions";
 import API from "../API";
@@ -17,9 +17,17 @@ export function actionFetchAllTasks(onSuccessAction?: (payload: any) => Action<a
 }
 
 export function actionAddTask(task: Task): any {
-    return {
-        type: TASKS_ADD_ONE,
-        payload: task
+    return (dispatch: any) => {
+        API.put('/todos', task)
+            .then(task => {
+                dispatch({
+                    type: TASKS_ADD_ONE,
+                    payload: task
+                })
+            })
+            .catch(err => {
+                throw new Error(JSON.stringify(err.message || err))
+            })
     }
 }
 
@@ -31,9 +39,18 @@ export function actionSetTasks(tasks: Array<Task>): any {
 }
 
 export function actionToggleTask(task: Task): any {
-    return {
-        type: TASKS_TOGGLE_ONE,
-        payload: task
+    return (dispatch: any) => {
+        task.isCompleted = !task.isCompleted
+        API.post(`/todos/${task.id}`, task)
+            .then(updatedTask => {
+                dispatch({
+                    type: TASKS_UPDATE_ONE,
+                    payload: updatedTask
+                })
+            })
+            .catch(err => {
+                throw new Error(JSON.stringify(err.message || err))
+            })
     }
 }
 

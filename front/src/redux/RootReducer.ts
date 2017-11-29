@@ -4,7 +4,7 @@ import {AppState, getInitialState} from "./AppState";
 import {Action, handleActions, ReducerMap} from "redux-actions";
 import {Task} from "../model/Task";
 import {TodoFilter} from "../model/TodoList";
-import {FILTER_SET, TASKS_ADD_ONE, TASKS_SET_ALL, TASKS_TOGGLE_ONE} from "./ActionTypes";
+import {FILTER_SET, TASKS_ADD_ONE, TASKS_SET_ALL, TASKS_UPDATE_ONE} from "./ActionTypes";
 
 // TasksReducer
 type TasksActionState = Task[]
@@ -25,12 +25,11 @@ const TasksReducer = handleActions<TasksActionState, TasksActionData>({
         return [...action.payload || []]
     },
 
-    [TASKS_TOGGLE_ONE]: (currentState: TasksActionState, action: Action<TasksActionData>): TasksActionState => {
+    [TASKS_UPDATE_ONE]: (currentState: TasksActionState, action: Action<TasksActionData>): TasksActionState => {
         let nextState = currentState
 
         if (action.payload) {
             const task = action.payload
-            task.isCompleted = !task.isCompleted
             const taskPosition = currentState.findIndex(t => t.id == task.id)
             nextState = currentState.map((t, i) => i === taskPosition ? task : t)
         }
