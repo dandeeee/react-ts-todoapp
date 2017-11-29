@@ -16,8 +16,10 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.get('/', (request, response) => {
-  response.send(200, tasks)
+app.get('/todos', (request, response) => {
+  setTimeout(() => {
+      response.send(200, tasks)
+  }, 1000)
 })
 
 app.listen(port, (err) => {

@@ -3,6 +3,7 @@ import './App.css'
 import AppRouter from './AppRouter'
 import { TodoFilter } from './model/TodoList'
 import { Task } from './model/Task'
+import API from "./API";
 
 interface State {
     tasks: Array<Task>
@@ -20,23 +21,7 @@ class App extends React.Component<{}, State> {
     }
 
     componentWillMount() {
-        const HOST = 'http://localhost:9000'
-        const path = '/'
-
-        const fetchPromise = new Promise((resolve, reject) => {
-            return fetch(`${HOST}${path}`, { method: 'get'})
-                .then(res => {
-                    return res.json()
-                })
-                .then(data => {
-                    resolve(data)
-                })
-                .catch(err => {
-                    reject(err)
-                })
-        })
-
-        fetchPromise.then((tasks: Array<Task>) => {
+        API.get('/todos').then((tasks: Array<Task>) => {
             this.setState({ tasks })
         })
     }
