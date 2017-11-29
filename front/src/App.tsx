@@ -6,13 +6,16 @@ import { Task } from './model/Task'
 import {AppState} from "./redux/AppState";
 import {connect} from "react-redux";
 import {bindActionCreators} from 'redux';
-import {actionAddTask, actionChangeFilter, actionSetTasks, actionToggleTask} from "./redux/AppActions";
-import API from "./API";
+import {
+    actionAddTask, actionChangeFilter, actionFetchAllTasks, actionSetTasks,
+    actionToggleTask
+} from "./redux/AppActions";
 
 interface Props {
     tasks: Array<Task>
     filter: TodoFilter
 
+    fetchTasks: Function
     addTask: Function
     setTasks: Function
     toggleTask: Function
@@ -22,9 +25,7 @@ interface Props {
 class App extends React.Component<Props, any> {
 
     componentWillMount() {
-        API.get('/todos').then((tasks: Array<Task>) => {
-            this.props.setTasks(tasks)
-        })
+        this.props.fetchTasks(actionSetTasks)
     }
 
     handleTaskAdd(task: Task) {
@@ -62,6 +63,7 @@ const mapStateToProps = (state: AppState) => {
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
+        fetchTasks: bindActionCreators(actionFetchAllTasks, dispatch),
         addTask: bindActionCreators(actionAddTask, dispatch),
         setTasks: bindActionCreators(actionSetTasks, dispatch),
         toggleTask: bindActionCreators(actionToggleTask, dispatch),
