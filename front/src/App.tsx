@@ -7,7 +7,7 @@ import {AppState} from "./redux/AppState";
 import {connect} from "react-redux";
 import {bindActionCreators} from 'redux';
 import {
-    actionAddTask, actionChangeFilter, actionFetchAllTasks, actionSetTasks,
+    actionSaveTask, actionChangeFilter, actionFetchAllTasks, actionSetTasks,
     actionToggleTask
 } from "./redux/AppActions";
 
@@ -64,7 +64,7 @@ const mapStateToProps = (state: AppState) => {
 const mapDispatchToProps = (dispatch: any) => {
     return {
         fetchTasks: bindActionCreators(actionFetchAllTasks, dispatch),
-        addTask: bindActionCreators(actionAddTask, dispatch),
+        addTask: bindActionCreators(actionSaveTask, dispatch),
         setTasks: bindActionCreators(actionSetTasks, dispatch),
         toggleTask: bindActionCreators(actionToggleTask, dispatch),
         changeFilter: bindActionCreators(actionChangeFilter, dispatch)

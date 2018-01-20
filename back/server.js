@@ -42,7 +42,7 @@ app.post('/todos/:id', (request, response) => {
     const newTask = request.body
     const taskPosition = tasks.findIndex(t => t.id == request.params.id)
 
-    if(taskPosition){
+    if(taskPosition >= 0){
         const persistedTask = tasks[taskPosition]
         const updatedTask = Object.assign(new Task(), persistedTask, newTask)
         tasks[taskPosition] = updatedTask

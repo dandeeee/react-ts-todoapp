@@ -13,6 +13,7 @@
     "react-router-dom": "^4.2.2",
     "react-scripts-ts": "2.8.0",
     "redux-actions": "^2.2.1",
+    "redux-saga": "^0.15.3",
     "redux-thunk": "^2.2.0",
     "uuid": "^3.1.0"
   },
